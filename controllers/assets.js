@@ -16,7 +16,24 @@ async function getAllAssets(req, res) {
   res.json(dbResponse.rows)
 }
 
+async function getAsset(req, res) {
+  const { id } = req.params
+  const dbResponse = await db.query('SELECT * from asset where id = $1', [id])
+  res.json(dbResponse.rows[0])
+}
+
+async function updateAsset(req, res) {
+  const { id, name, description } = req.body
+  const dbResponse = await db.query(
+    'UPDATE asset set name = $1, description = $2 where id = $3 RETURNING *',
+    [name, description, id]
+  )
+  res.json(dbResponse.rows[0])
+}
+
 module.exports = {
   createAsset,
-  getAllAssets
+  getAllAssets,
+  getAsset,
+  updateAsset
 }

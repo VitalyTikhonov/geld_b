@@ -12,5 +12,5 @@ create TABLE asset(
     id SERIAL,
     name VARCHAR(100),
     description VARCHAR(255),
-    value NUMERIC(12, 2),
+    value NUMERIC(12, 2)
 );
