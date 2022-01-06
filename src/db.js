@@ -6,5 +6,4 @@ const pool = new Pool({
   port: 5432,
   database: "geld_v1"
 })
-console.log("db module visited")
 module.exports = pool
