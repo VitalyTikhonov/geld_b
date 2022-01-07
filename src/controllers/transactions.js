@@ -10,6 +10,12 @@ async function createTransaction(req, res) {
 }
 
 async function getAllTransactions(req, res) {
+  const { assetId } = req.query
+  if (assetId) {
+    const dbResponse = await db.query('SELECT * from transactions where asset = $1', [assetId])
+    res.json(dbResponse.rows)
+    return
+  }
   const dbResponse = await db.query('SELECT * from transactions')
   res.json(dbResponse.rows)
 }
@@ -69,7 +75,7 @@ async function deleteTransaction(req, res) {
 module.exports = {
   createTransaction,
   getAllTransactions,
-  updateTransaction,
   getTransaction,
+  updateTransaction,
   deleteTransaction
 }
